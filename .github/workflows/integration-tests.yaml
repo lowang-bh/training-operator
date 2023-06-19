@@ -94,9 +94,9 @@ jobs:
         run: |
           echo "test env values"
           echo ${{ env.GANG_SCHEDULER_NAME }}
-          echo ${{ env.matrix.gang-scheduler-name }}
-          echo ${{ failure() &&  matrix.gang-scheduler-name == 'volcano' }}
-          echo ${{ failure() && env.GANG_SCHEDULER_NAME == 'volcano' }}
+          echo ${{ matrix.gang-scheduler-name }}
+          echo ${{ env.GANG_SCHEDULER_NAME == 'volcano' }}
+          echo ${{ matrix.gang-scheduler-name == 'volcano' }}
 
       - name: Run tests
         run: |
