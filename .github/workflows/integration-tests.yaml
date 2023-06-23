@@ -1,6 +1,6 @@
 name: integration test
 on:
-  - pull_request
+  - push
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -92,9 +92,9 @@ jobs:
 
       - name: test env values
         run: |
-          echo "test env values"
+          echo "echo env values with env.GANG_SCHEDULER_NAME and matrix.gang-scheduler-name"
           echo ${{ env.GANG_SCHEDULER_NAME }}
-          echo ${{ matrix.gang-scheduler-name }}
+          echo "matrix.gang-scheduler-name="${{ matrix.gang-scheduler-name }}
           echo ${{ env.GANG_SCHEDULER_NAME == 'volcano' }}
           echo ${{ matrix.gang-scheduler-name == 'volcano' }}
 
@@ -102,6 +102,7 @@ jobs:
         run: |
           pip install pytest
           python3 -m pip install -e sdk/python; pytest sdk/python/test --log-cli-level=info --namespace=default
+          exit 1
         env:
           GANG_SCHEDULER_NAME: ${{ matrix.gang-scheduler-name }}
 
